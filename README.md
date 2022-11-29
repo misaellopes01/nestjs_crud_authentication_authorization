@@ -1,4 +1,4 @@
-# nestjs_crud_authentication_authorization
+# NestJS | CRUD | RESTFull API | Authentication | Authorization
  
 ## A Simple NestJS CRUD RESTFull API with Authentication and Authorization with Passport and JWT
 <hr>
