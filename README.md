@@ -11,18 +11,22 @@
 
 ### Auth
 #### SignUp `[POST] - 201`: `http://localhost:3000/signup`
-- You can signUp as new user here, is a public route. Should Return a _accessToken and refreshToken_. Default admin role for users that are created in this route is false
+- You can signUp as new user here, is a public route. Should Return a _accessToken and refreshToken_. Default admin role for users that are created in this route is false. Body request should be like:
 ```json
 {
 	"name": "John Mist",
 	"email": "mist.john@gmail.com",
 	"password": "1234"
 }
-Return_Example {
+```
+Return_Example 
+```json
+{
 	"access_token": "eyJhbGciOiJIUzI1N...",
 	"refresh_token": "eyJhbGciOiJIUzI1NiIsI..."
 }
 ```
+
 #### SignIn `[POST] - 200`: `http://localhost:3000/signin`
 - You can Login in your account here, is a public route. Should Return a _accessToken and refreshToken_
 ```json
