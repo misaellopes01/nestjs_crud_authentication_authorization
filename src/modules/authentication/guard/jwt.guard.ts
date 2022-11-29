@@ -6,3 +6,9 @@ export class JwtGuard extends AuthGuard('jwt') {
         super()
     }
 }
+
+export class JwtGuardRefresh extends AuthGuard('jwt-refresh') {
+    constructor() {
+        super()
+    }
+}

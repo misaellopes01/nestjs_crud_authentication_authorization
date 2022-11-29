@@ -82,7 +82,6 @@ export class AuthService {
         name,
         email,
         password: hashedPassword,
-
       },
     });
 
@@ -126,10 +125,50 @@ export class AuthService {
 
 
 
-  async logout() {
+  async logout(user_id: string) {
+    await this.prisma.user.updateMany({
+      data: {
+        hashedRt: null
+      },
+      where: {
+        id: user_id,
+        hashedRt: {
+          not: null
+        }
+      }
+    })
   }
 
-  async refreshToken() {
+  async refreshToken(user_id: string, rt: string) {
+
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: user_id,
+      },
+    });
+
+    if (!user) {
+      throw new ForbiddenException('Credentials incorrect!');
+    }
+    if (!user.hashedRt) {
+      throw new ForbiddenException('Credentials incorrect!');
+    }
+
+    const rtMatches = await argon.verify(user.hashedRt, rt);
+
+    if (!rtMatches) {
+      throw new ForbiddenException('Access Denied!');
+    }
+
+    const { access_token, refresh_token } = await this.signToken(user.id, user.email);
+
+    await this.updateUserRefreshToken(user.id, refresh_token)
+
+    return {
+      access_token,
+      refresh_token
+    }
+
   }
 
 }

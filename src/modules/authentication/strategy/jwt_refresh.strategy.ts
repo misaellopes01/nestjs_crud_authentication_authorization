@@ -36,7 +36,7 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh'
         delete user.password
 
         return {
-            user,
+            payload,
             refreshToken
         }
     }
